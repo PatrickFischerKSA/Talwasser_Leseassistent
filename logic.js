@@ -1,164 +1,264 @@
-/* Talwasser Leseassistent – Logic (Root-only) */
-function norm(s){
-  if(!s) return "";
-  return s.toLowerCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
-    .replace(/[^\p{L}\p{N}]+/gu," ")
-    .replace(/\s+/g," ")
-    .trim();
-}
-function tokenSet(s){
-  const t = norm(s).split(" ").filter(Boolean);
-  return new Set(t);
-}
-function similarity(a,b){
-  // simple token Jaccard
-  const A = tokenSet(a), B = tokenSet(b);
-  if(A.size===0 || B.size===0) return 0;
-  let inter=0;
-  for(const x of A) if(B.has(x)) inter++;
-  const uni = A.size + B.size - inter;
-  return inter/uni;
-}
-function isCorrect(input, keywords){
-  const v = norm(input);
-  if(!v) return false;
-  const ks = (keywords||[]).map(k=>norm(k)).filter(Boolean);
-  if(ks.length===0){
-    // no keyword list: accept any non-empty after 3 tries (handled elsewhere)
-    return false;
+/* Talwasser – Leseassistent: Logik (Sofortkorrektur, Synonyme, Freischaltung, Reset, Export)
+   - Liest questions.json aus dem Root
+   - Speichert Antworten in localStorage
+*/
+(function(){
+  const KEY = (id, f) => `TW:${id}:f${f}`;
+  const KEY_TRIES = (id, f) => `TW:${id}:tries:f${f}`;
+  const KEY_UNLOCK = (id) => `TW:${id}:unlock_f2`;
+  const KEY_NOTES = (id) => `TW:${id}:notes`;
+
+  function norm(s){
+    return (s||"")
+      .toLowerCase()
+      .replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss")
+      .replace(/[^\p{L}\p{N}\s]/gu," ")
+      .replace(/\s+/g," ")
+      .trim();
   }
-  // generous: accept if any keyword appears as substring OR Jaccard similarity with any keyword >= 0.34
-  for(const k of ks){
-    if(!k) continue;
-    if(v.includes(k)) return true;
-    if(similarity(v,k) >= 0.34) return true;
+
+  function tokens(s){
+    const t = norm(s).split(" ").filter(Boolean);
+    // remove very short tokens
+    return t.filter(w => w.length >= 3);
   }
-  return false;
-}
 
-function lsKey(part, chap, qnum){ return `talwasser:${part}:${chap}:q${qnum}`; }
-function lsCommentKey(part, chap){ return `talwasser:${part}:${chap}:comment`; }
-function lsTryKey(part, chap, qnum){ return `talwasser:${part}:${chap}:q${qnum}:tries`; }
-function setLS(k,v){ localStorage.setItem(k, v); }
-function getLS(k, d=""){ const v = localStorage.getItem(k); return (v===null? d : v); }
-function delLS(k){ localStorage.removeItem(k); }
+  function jaccard(a, b){
+    const A = new Set(tokens(a));
+    const B = new Set(tokens(b));
+    if (A.size === 0 || B.size === 0) return 0;
+    let inter = 0;
+    for (const x of A) if (B.has(x)) inter++;
+    const union = A.size + B.size - inter;
+    return union ? inter / union : 0;
+  }
 
-async function loadQuestions(){
-  const res = await fetch("questions.json", {cache:"no-store"});
-  if(!res.ok) throw new Error("questions.json konnte nicht geladen werden.");
-  return await res.json();
-}
+  function hasSynGroup(answer, group){
+    const na = norm(answer);
+    return group.some(term => na.includes(norm(term)));
+  }
 
-function initChapter(part, chap){
-  loadQuestions().then(data=>{
-    const list = (data?.[part]?.[String(chap)]) || [];
-    const qWrap = document.getElementById("questions");
-    qWrap.innerHTML = "";
-    list.forEach((q, idx)=>{
-      const qnum = q.num;
-      const card = document.createElement("div");
-      card.className = "qcard";
-      card.id = `qcard-${qnum}`;
-
-      const title = document.createElement("div");
-      title.className = "qtitle";
-      title.textContent = `${qnum}. ${q.question}`;
-      card.appendChild(title);
-
-      const input = document.createElement("textarea");
-      input.rows = 3;
-      input.placeholder = "Antwort eingeben…";
-      input.value = getLS(lsKey(part, chap, qnum), "");
-      card.appendChild(input);
-
-      const btn = document.createElement("button");
-      btn.className = "btn";
-      btn.textContent = "Antwort prüfen";
-      card.appendChild(btn);
-
-      const msg = document.createElement("div");
-      msg.className = "msg";
-      card.appendChild(msg);
-
-      const sol = document.createElement("div");
-      sol.className = "solution hidden";
-      sol.innerHTML = `<div><b>Lösungsvorschlag:</b> ${q.expectation ? q.expectation : "—"}</div>`;
-      card.appendChild(sol);
-
-      // gating: only show first question initially
-      if(idx>0){
-        card.classList.add("hidden");
-      }
-
-      // restore tries and show solution if already 3+
-      const tries = parseInt(getLS(lsTryKey(part, chap, qnum), "0"), 10) || 0;
-      if(tries>=3){
-        sol.classList.remove("hidden");
-        msg.textContent = "Max. Fehlversuche erreicht – Lösungsvorschlag eingeblendet.";
-        msg.classList.add("bad");
-      }
-
-      function revealNext(){
-        const next = list[idx+1];
-        if(!next) return;
-        const nextCard = document.getElementById(`qcard-${next.num}`);
-        if(nextCard) nextCard.classList.remove("hidden");
-      }
-
-      // if already answered correctly earlier, unlock next
-      const stored = getLS(lsKey(part, chap, qnum), "");
-      const okFlag = getLS(`talwasser:${part}:${chap}:q${qnum}:ok`, "0")==="1";
-      if(okFlag){
-        msg.textContent = "✓ gespeichert (bereits korrekt).";
-        msg.classList.add("ok");
-        revealNext();
-      }
-
-      btn.addEventListener("click", ()=>{
-        const ans = input.value || "";
-        setLS(lsKey(part, chap, qnum), ans);
-
-        let triesNow = parseInt(getLS(lsTryKey(part, chap, qnum), "0"), 10) || 0;
-
-        const keywords = q.synonyms || [];
-        const correct = isCorrect(ans, keywords);
-
-        // generous: if empty keyword list, never auto-correct; but our doc always has synonyms
-        if(correct){
-          msg.textContent = "✓ korrekt (grosszügig erkannt).";
-          msg.className = "msg ok";
-          setLS(`talwasser:${part}:${chap}:q${qnum}:ok`, "1");
-          revealNext();
-          return;
-        }
-
-        triesNow += 1;
-        setLS(lsTryKey(part, chap, qnum), String(triesNow));
-        setLS(`talwasser:${part}:${chap}:q${qnum}:ok`, "0");
-
-        if(triesNow>=3){
-          sol.classList.remove("hidden");
-          msg.textContent = "Nicht korrekt – Lösungsvorschlag eingeblendet. Du kannst weiter.";
-          msg.className = "msg bad";
-          revealNext();
-        }else{
-          msg.textContent = `Noch nicht korrekt. Versuch ${triesNow}/3.`;
-          msg.className = "msg bad";
-        }
-      });
-
-      qWrap.appendChild(card);
-    });
-
-    // comment
-    const c = document.getElementById("comment");
-    if(c){
-      c.value = getLS(lsCommentKey(part, chap), "");
-      c.addEventListener("input", ()=> setLS(lsCommentKey(part, chap), c.value||""));
+  function synonymScore(answer, groups){
+    if (!groups || !groups.length) return 0;
+    let hit = 0;
+    for (const g of groups){
+      if (hasSynGroup(answer, g)) hit++;
     }
-  }).catch(err=>{
-    const qWrap = document.getElementById("questions");
-    qWrap.innerHTML = `<p style="color:#b00020"><b>Fehler:</b> ${err.message}</p>`;
-  });
-}
+    return hit / groups.length;
+  }
+
+  function loadJSON(){
+    return fetch("questions.json", {cache:"no-store"}).then(r=>{
+      if(!r.ok) throw new Error("questions.json konnte nicht geladen werden.");
+      return r.json();
+    });
+  }
+
+  let QUESTIONS = null;
+
+  function qKey(id, f){
+    return `${id}_f${f}`;
+  }
+
+  function setText(id, f, txt){
+    const el = document.getElementById(`${id}_q${f}_text`);
+    if (el) el.textContent = txt || "";
+  }
+
+  function getTA(id, f){
+    return document.getElementById(`${id}_f${f}`);
+  }
+
+  function setStatus(id, f, msg){
+    const el = document.getElementById(`${id}_f${f}_status`);
+    if (el) el.textContent = msg || "";
+  }
+
+  function showSolution(id, f, txt){
+    const el = document.getElementById(`${id}_f${f}_solution`);
+    if (el){
+      el.style.display = "block";
+      el.textContent = `Lösungsvorschlag: ${txt}`;
+    }
+  }
+
+  function lockF2(id, locked){
+    const blk = document.getElementById(`${id}_block_f2`);
+    if(!blk) return;
+    if(locked) blk.classList.add("locked");
+    else blk.classList.remove("locked");
+  }
+
+  function saveAnswer(id, f){
+    const ta = getTA(id,f);
+    if(!ta) return;
+    localStorage.setItem(KEY(id,f), ta.value || "");
+  }
+
+  function loadAnswer(id, f){
+    const ta = getTA(id,f);
+    if(!ta) return;
+    const v = localStorage.getItem(KEY(id,f));
+    if (v !== null) ta.value = v;
+  }
+
+  function loadNotes(id){
+    const el = document.getElementById(`${id}_notes`);
+    if(!el) return;
+    const v = localStorage.getItem(KEY_NOTES(id));
+    if (v !== null) el.value = v;
+    el.addEventListener("input", ()=> localStorage.setItem(KEY_NOTES(id), el.value || ""));
+  }
+
+  function tries(id, f){
+    return parseInt(localStorage.getItem(KEY_TRIES(id,f)) || "0", 10);
+  }
+  function incTries(id, f){
+    const t = tries(id,f) + 1;
+    localStorage.setItem(KEY_TRIES(id,f), String(t));
+    return t;
+  }
+  function resetTries(id, f){
+    localStorage.removeItem(KEY_TRIES(id,f));
+  }
+
+  function isUnlocked(id){
+    return localStorage.getItem(KEY_UNLOCK(id)) === "1";
+  }
+  function unlockF2(id){
+    localStorage.setItem(KEY_UNLOCK(id), "1");
+    lockF2(id, false);
+  }
+
+  function evaluate(answer, expectation, synGroups){
+    const jac = jaccard(answer, expectation);
+    const syn = synonymScore(answer, synGroups);
+    // generous: accept if either decent token overlap OR synonym groups hit enough
+    const pass = (jac >= 0.32) || (syn >= 0.5 && tokens(answer).length >= 3) || (syn >= 0.75);
+    return {pass, jac, syn};
+  }
+
+  function check(id, f){
+    if(!QUESTIONS){
+      setStatus(id,f,"Fragen werden noch geladen…");
+      return;
+    }
+    const k = qKey(id,f);
+    const q = QUESTIONS[k];
+    if(!q){
+      setStatus(id,f,"Fehlende Frage in questions.json.");
+      return;
+    }
+
+    const ta = getTA(id,f);
+    const ans = ta ? (ta.value || "") : "";
+    saveAnswer(id,f);
+
+    const res = evaluate(ans, q.expectation || "", q.synonyms || []);
+    if(res.pass){
+      setStatus(id,f,`✓ korrekt (Synonyme: ${(res.syn*100|0)}%, Textnähe: ${(res.jac*100|0)}%)`);
+      resetTries(id,f);
+      // unlock next after f1
+      if(f === 1) unlockF2(id);
+      return;
+    }
+
+    const t = incTries(id,f);
+    if(t >= 3){
+      setStatus(id,f,"✗ noch nicht – Lösungsvorschlag eingeblendet. Du darfst weiter.");
+      showSolution(id,f, q.expectation || "");
+      // after 3 attempts, allow progress
+      if(f === 1) unlockF2(id);
+      return;
+    }
+    setStatus(id,f,`✗ noch nicht (Versuch ${t}/3). Versuche es nochmals.`);
+  }
+
+  function resetChapter(id){
+    if(!confirm("Wirklich dieses Kapitel zurücksetzen? (Antworten + Notizen werden gelöscht)")) return;
+    const prefixes = [`TW:${id}:`];
+    const toDelete = [];
+    for(let i=0;i<localStorage.length;i++){
+      const k = localStorage.key(i);
+      if(!k) continue;
+      if(prefixes.some(p => k.startsWith(p))) toDelete.push(k);
+    }
+    toDelete.forEach(k => localStorage.removeItem(k));
+    // also remove unlock
+    localStorage.removeItem(KEY_UNLOCK(id));
+    // clear UI
+    [1,2].forEach(f=>{
+      const ta = getTA(id,f); if(ta) ta.value="";
+      setStatus(id,f,"");
+      const sol = document.getElementById(`${id}_f${f}_solution`);
+      if(sol){ sol.style.display="none"; sol.textContent=""; }
+    });
+    const notes = document.getElementById(`${id}_notes`);
+    if(notes) notes.value="";
+    lockF2(id, true);
+  }
+
+  function exportChapter(id){
+    if(!QUESTIONS) return;
+    const out = {
+      chapter: id,
+      exported_at: new Date().toISOString(),
+      q1: {
+        question: (QUESTIONS[`${id}_f1`]||{}).question || "",
+        answer: localStorage.getItem(KEY(id,1)) || "",
+        expectation: (QUESTIONS[`${id}_f1`]||{}).expectation || ""
+      },
+      q2: {
+        question: (QUESTIONS[`${id}_f2`]||{}).question || "",
+        answer: localStorage.getItem(KEY(id,2)) || "",
+        expectation: (QUESTIONS[`${id}_f2`]||{}).expectation || ""
+      },
+      notes: localStorage.getItem(KEY_NOTES(id)) || ""
+    };
+    const blob = new Blob([JSON.stringify(out, null, 2)], {type:"application/json"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `${id}_export.json`;
+    a.click();
+    setTimeout(()=> URL.revokeObjectURL(a.href), 1500);
+  }
+
+  function initChapter(id){
+    // load saved answers/notes
+    [1,2].forEach(f => loadAnswer(id,f));
+    loadNotes(id);
+    // lock/unlock f2
+    lockF2(id, !isUnlocked(id));
+    // populate question text
+    const q1 = QUESTIONS[`${id}_f1`];
+    const q2 = QUESTIONS[`${id}_f2`];
+    if(q1) setText(id,1,q1.question);
+    if(q2) setText(id,2,q2.question);
+
+    // persist answers on input
+    [1,2].forEach(f=>{
+      const ta = getTA(id,f);
+      if(ta) ta.addEventListener("input", ()=> saveAnswer(id,f));
+    });
+  }
+
+  function boot(){
+    const id = window.TW_CHAPTER_ID;
+    if(!id) return; // only runs on chapter pages
+    loadJSON().then(j=>{
+      QUESTIONS = j;
+      initChapter(id);
+    }).catch(e=>{
+      console.error(e);
+      setStatus(id,1, e.message || "questions.json konnte nicht geladen werden.");
+    });
+  }
+
+  window.TW = { check, resetChapter, exportChapter };
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();

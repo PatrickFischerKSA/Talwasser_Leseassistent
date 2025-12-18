@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>{{KAPITEL_TITEL}}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: serif; margin: 40px; }
+    a { text-decoration: none; }
+    iframe { width: 100%; height: 70vh; border: 1px solid #aaa; }
+    .bilder { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0 28px; }
+    .bilder img { max-width: 320px; height: auto; border: 1px solid #ddd; }
+    .frage { margin: 18px 0; padding: 12px 14px; border: 1px solid #eee; border-radius: 10px; }
+    textarea { width: 100%; min-height: 90px; font-family: inherit; font-size: 1rem; padding: 10px; }
+    .status { margin-top: 8px; font-size: 0.95rem; }
+    .locked { opacity: 0.45; pointer-events: none; }
+    .btnrow { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    button { padding: 8px 12px; border-radius: 10px; border: 1px solid #ddd; background: #fafafa; cursor: pointer; }
+    button:hover { background: #f0f0f0; }
+    .hint { font-size: 0.95rem; color: #444; margin-top: 6px; }
+    .solution { margin-top: 8px; padding: 10px; background: #fff8dc; border: 1px solid #f2e2a5; border-radius: 10px; display:none; }
+  </style>
+</head>
+<body>
+
+<p><a href="index.html">← Übersicht</a></p>
+
+<h1>{{KAPITEL_TITEL}}</h1>
+
+<iframe src="{{PDF_NAME}}"></iframe>
+
+<!-- Optional: Bilder (falls du pro Kapitel Bilder zuweisen willst, diese <img> Zeilen einfügen oder entfernen) -->
+<div class="bilder">
+  <!-- <img src="Bildname.jpg" alt="Beschreibung"> -->
+</div>
+
+<section class="fragen">
+  <h2>Fragen</h2>
+
+  <div class="frage" id="{{ID}}_block_f1">
+    <p><strong>1.</strong> <span id="{{ID}}_q1_text"></span></p>
+    <textarea id="{{ID}}_f1" placeholder="Antwort hier eingeben…"></textarea>
+    <div class="btnrow">
+      <button type="button" onclick="TW.check('{{ID}}', 1)">Antwort prüfen</button>
+    </div>
+    <div class="status" id="{{ID}}_f1_status"></div>
+    <div class="solution" id="{{ID}}_f1_solution"></div>
+  </div>
+
+  <div class="frage locked" id="{{ID}}_block_f2">
+    <p><strong>2.</strong> <span id="{{ID}}_q2_text"></span></p>
+    <textarea id="{{ID}}_f2" placeholder="Antwort hier eingeben…"></textarea>
+    <div class="btnrow">
+      <button type="button" onclick="TW.check('{{ID}}', 2)">Antwort prüfen</button>
+    </div>
+    <div class="status" id="{{ID}}_f2_status"></div>
+    <div class="solution" id="{{ID}}_f2_solution"></div>
+    <p class="hint">Frage 2 wird nach korrekter Antwort (oder nach 3 Fehlversuchen mit Lösung) freigeschaltet.</p>
+  </div>
+
+  <h2>Eigene Beobachtungen</h2>
+  <textarea id="{{ID}}_notes" placeholder="Eigene Beobachtungen…"></textarea>
+
+  <div class="btnrow" style="margin-top:14px;">
+    <button type="button" onclick="TW.exportChapter('{{ID}}')">Export dieses Kapitels</button>
+    <button type="button" onclick="TW.resetChapter('{{ID}}')">Reset dieses Kapitels</button>
+  </div>
+</section>
+
+<script>
+  // Kapitelkennung (wichtig für LocalStorage & questions.json)
+  window.TW_CHAPTER_ID = "{{ID}}";
+</script>
+<script src="logic.js"></script>
+</body>
+</html>
