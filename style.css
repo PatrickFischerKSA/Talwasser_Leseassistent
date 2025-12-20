@@ -1,8 +1,42 @@
 
-body { font-family: Arial, sans-serif; margin: 40px; }
-h1 { font-size: 1.5em; }
-iframe { width: 100%; height: 600px; border: 1px solid #ccc; }
-.question { margin: 20px 0; }
-textarea { width: 100%; height: 80px; }
-.buttons { margin-top: 20px; }
-button, a { margin-right: 10px; }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 1.4em;
+  margin: 10px 0 15px 0;
+}
+
+iframe {
+  width: 100%;
+  height: 80vh;
+  border: 1px solid #aaa;
+  margin-bottom: 20px;
+}
+
+.question {
+  margin: 20px 0;
+}
+
+textarea {
+  width: 100%;
+  min-height: 90px;
+  font-size: 0.95em;
+}
+
+.buttons {
+  margin: 30px 0;
+}
+
+button, a {
+  margin-right: 10px;
+}
