@@ -13,7 +13,7 @@
 
     <h1>Talwasser – Kapitel I_01</h1>
 
-    <!-- Kapitelbild: nur aus der von dir freigegebenen Liste -->
+    <!-- Kapitelbild (aus freigegebener Liste) -->
     <img src="Waegitalersee.jpg" alt="Waegitalersee" class="chapter-image">
 
     <iframe src="I_01.pdf"></iframe>
@@ -43,6 +43,17 @@
         <p><strong>Synonyme:</strong> Spannung / Erwartung; Unsicherheit / latente Angst</p>
       </details>
     </div>
+
+    <div class="actions">
+      <button class="reset" onclick="resetAnswers()">Antworten zurücksetzen</button>
+    </div>
   </div>
+
+  <script>
+    function resetAnswers() {
+      if (!confirm("Alle Antworten in diesem Kapitel löschen?")) return;
+      document.querySelectorAll("textarea").forEach(t => t.value = "");
+    }
+  </script>
 </body>
 </html>
