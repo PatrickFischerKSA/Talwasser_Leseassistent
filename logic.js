@@ -1,16 +1,20 @@
-const IMAGE_POOL = [
-  "StaumauerBauarbeiten.jpg",
-  "Stollenbau.jpg",
-  "Waegitalersee.jpg",
-  "WaegitalimWinter.jpg",
-  "Alt_Innertal.jpg",
-  "Bauarbeiten.jpg",
-  "Bauarbeiten_2.jpg",
-  "Bauarbeiten_3.jpg",
-  "BildWaegitalerseeheute.jpg",
-  "BlickaufStaumauer.jpg",
-  "BlickaufStaumauer_2.jpg"
-];
+const IMAGE_MAP = {
+  landscape: [
+    "Waegitalersee.jpg",
+    "WaegitalimWinter.jpg",
+    "BildWaegitalerseeheute.jpg",
+    "Alt_Innertal.jpg"
+  ],
+  construction: [
+    "StaumauerBauarbeiten.jpg",
+    "Bauarbeiten.jpg",
+    "Bauarbeiten_2.jpg",
+    "Bauarbeiten_3.jpg",
+    "Stollenbau.jpg",
+    "BlickaufStaumauer.jpg",
+    "BlickaufStaumauer_2.jpg"
+  ]
+};
 
 function chapterKey(chapterId, field) {
   return `talwasser:${chapterId}:${field}`;
@@ -44,38 +48,36 @@ function resetAll() {
 }
 
 function pickImage(chapterId) {
-  // Deterministische Rotation durch den vorhandenen Bildbestand
-  // (kein Platzhalter, keine externen Quellen)
   const m = chapterId.match(/^(I|II)_(\d{2})$/);
-  if (!m) return IMAGE_POOL[0];
+  if (!m) return IMAGE_MAP.landscape[0];
   const part = m[1];
   const num = parseInt(m[2], 10);
-  const offset = (part === "I") ? 0 : 5;
-  const idx = (offset + (num - 1)) % IMAGE_POOL.length;
-  return IMAGE_POOL[idx];
+
+  if (part === "I") {
+    if (num <= 8) return IMAGE_MAP.landscape[(num - 1) % IMAGE_MAP.landscape.length];
+    if (num <= 15) return IMAGE_MAP.construction[(num - 9) % IMAGE_MAP.construction.length];
+    return IMAGE_MAP.construction[(num - 1) % IMAGE_MAP.construction.length];
+  } else {
+    if (num <= 10) return IMAGE_MAP.construction[(num - 1) % IMAGE_MAP.construction.length];
+    return IMAGE_MAP.landscape[(num - 11) % IMAGE_MAP.landscape.length];
+  }
 }
 
 function setHeroImage(chapterId) {
   const img = document.getElementById("heroImage");
   if (!img) return;
   img.src = pickImage(chapterId);
-  img.onerror = () => {
-    // Falls ein Bildname im Repo fehlt: Bildfeld ausblenden (kein Platzhalterbild!)
-    img.style.display = "none";
-  };
+  img.onerror = () => { img.style.display = "none"; };
 }
 
 function initChapter(chapterId) {
   setHeroImage(chapterId);
-
   const a1 = document.getElementById("answer1");
   const a2 = document.getElementById("answer2");
   const obs = document.getElementById("observations");
-
-  if (a1) { a1.value = loadText(chapterId, "a1"); }
-  if (a2) { a2.value = loadText(chapterId, "a2"); }
-  if (obs) { obs.value = loadText(chapterId, "obs"); }
-
+  if (a1) a1.value = loadText(chapterId, "a1");
+  if (a2) a2.value = loadText(chapterId, "a2");
+  if (obs) obs.value = loadText(chapterId, "obs");
   updateProgressBadges();
 }
 
@@ -86,7 +88,6 @@ function chapterIsDone(chapterId) {
 }
 
 function updateProgressBadges() {
-  // index.html badges
   const badges = document.querySelectorAll("[data-chapter-id]");
   badges.forEach(b => {
     const id = b.getAttribute("data-chapter-id");
@@ -94,7 +95,6 @@ function updateProgressBadges() {
     b.textContent = chapterIsDone(id) ? "✔︎ erledigt" : "… offen";
   });
 
-  // global progress
   const totalEl = document.getElementById("progressTotal");
   const doneEl = document.getElementById("progressDone");
   if (!totalEl || !doneEl) return;
@@ -102,8 +102,6 @@ function updateProgressBadges() {
   const ids = Array.from(document.querySelectorAll("[data-chapter-id]"))
     .map(el => el.getAttribute("data-chapter-id"))
     .filter(Boolean);
-
-  if (ids.length === 0) return;
 
   const done = ids.filter(chapterIsDone).length;
   totalEl.textContent = String(ids.length);

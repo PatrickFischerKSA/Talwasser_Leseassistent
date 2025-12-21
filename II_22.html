@@ -1,75 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Talwasser – II_22</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="logic.js"></script>
+<meta charset="UTF-8">
+<title>Talwasser – Teil II, Kapitel 22</title>
+<link rel="stylesheet" href="style.css">
+<script src="logic.js"></script>
 </head>
-<body onload="initChapter('II_22')">
-  <div class="container">
-    <div class="topbar">
-      <div class="brand">
-        <h1>Talwasser – II_22</h1>
-        <div class="sub"><a href="index.html">← Zur Übersicht</a></div>
-      </div>
-      <div class="actions">
-        <button class="btn danger" onclick="resetChapter('II_22')">Reset: dieses Kapitel</button>
-        <a class="btn primary" href="index.html">Übersicht</a>
-      </div>
-    </div>
+<body onload="loadAnswer('II_22_q1');loadAnswer('II_22_q2')">
+<a href="index.html">← Zur Übersicht</a>
+<h1>Talwasser – Teil II, Kapitel 22</h1>
+<iframe src="II_22.pdf"></iframe>
 
-    <div class="card hero">
-      <img id="heroImage" alt="Kapitelbild">
-      <div class="muted small">
-        <div><strong>PDF:</strong> II_22.pdf</div>
-        <div>Wenn das PDF nicht lädt: prüfe Dateiname & dass es im Repo-Root liegt.</div>
-      </div>
-    </div>
+<div class="question">
+<p>1. Welche zentrale Beobachtung oder Handlung ist in diesem Kapitel entscheidend?</p>
+<textarea id="II_22_q1" oninput="saveAnswer('II_22_q1')"></textarea>
+</div>
 
-    <div class="card">
-      <iframe class="pdf" src="II_22.pdf#view=FitH"></iframe>
-    </div>
+<div class="question">
+<p>2. Welche Stimmung, welches Motiv oder welcher Gedanke prägt dieses Kapitel besonders?</p>
+<textarea id="II_22_q2" oninput="saveAnswer('II_22_q2')"></textarea>
+</div>
 
-    <div class="card">
-      <h2>Fragen</h2>
-
-      <div class="qblock">
-        <div class="q">
-          <h3>1) Wie werden frühere Konflikte neu bewertet?</h3>
-          <textarea id="answer1" placeholder="Antwort …" oninput="saveText('II_22','a1',this.value)"></textarea>
-
-          <details>
-            <summary>Sofortkorrektur / Lösungsvorschlag</summary>
-            <div class="muted" style="margin-top:8px;"><strong>Erwartungshorizont:</strong> Konflikte erscheinen im Rückblick differenzierter.</div>
-            <div class="synlist">
-              <span class="pill">Konflikt / Streit</span>
-<span class="pill">Rückblick / Reflexion</span>
-            </div>
-          </details>
-        </div>
-
-        <div class="q">
-          <h3>2) Welche Rolle spielt Zeit dabei?</h3>
-          <textarea id="answer2" placeholder="Antwort …" oninput="saveText('II_22','a2',this.value)"></textarea>
-
-          <details>
-            <summary>Sofortkorrektur / Lösungsvorschlag</summary>
-            <div class="muted" style="margin-top:8px;"><strong>Erwartungshorizont:</strong> Zeit schafft Distanz.</div>
-            <div class="synlist">
-              <span class="pill">Zeit / Abstand</span>
-<span class="pill">Distanz / Einordnung</span>
-            </div>
-          </details>
-        </div>
-
-        <div class="q">
-          <h3>Eigene Beobachtungen</h3>
-          <textarea id="observations" placeholder="Notizen …" oninput="saveText('II_22','obs',this.value)"></textarea>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="buttons">
+<button onclick="resetChapter('II_22')">Reset Kapitel</button>
+</div>
 </body>
 </html>

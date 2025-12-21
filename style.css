@@ -1,192 +1,42 @@
-:root{
-  --bg:#0b0f14;
-  --card:#111823;
-  --text:#e8eef7;
-  --muted:#a9b7c7;
-  --accent:#7dd3fc;
-  --border:rgba(255,255,255,.10);
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
 }
 
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;height:100%}
-body{
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: linear-gradient(180deg, #0b0f14 0%, #070a0f 100%);
-  color:var(--text);
+body {
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-a{color:var(--accent); text-decoration:none}
-a:hover{text-decoration:underline}
-
-.container{
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 18px 16px 60px;
+h1 {
+  font-size: 1.4em;
+  margin: 10px 0 15px 0;
 }
 
-.topbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding: 10px 0 14px;
-  border-bottom:1px solid var(--border);
-  margin-bottom: 18px;
-}
-
-.brand{
-  display:flex; flex-direction:column; gap:2px;
-}
-.brand h1{font-size:18px; margin:0}
-.brand .sub{font-size:12px; color:var(--muted)}
-
-.actions{
-  display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-}
-
-.btn{
-  appearance:none;
-  border:1px solid var(--border);
-  background: rgba(255,255,255,.04);
-  color:var(--text);
-  border-radius: 12px;
-  padding: 9px 12px;
-  font-size: 13px;
-  cursor:pointer;
-}
-.btn:hover{background: rgba(255,255,255,.07)}
-.btn.danger{border-color: rgba(255,255,255,.18); background: rgba(248,113,113,.10)}
-.btn.danger:hover{background: rgba(248,113,113,.16)}
-.btn.primary{border-color: rgba(125,211,252,.30); background: rgba(125,211,252,.12)}
-.btn.primary:hover{background: rgba(125,211,252,.18)}
-
-.grid{
-  display:grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-
-.card{
-  background: rgba(17,24,35,.85);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 14px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.25);
-}
-
-.card h2{margin:0 0 10px 0; font-size:16px}
-.muted{color:var(--muted)}
-.small{font-size:12px}
-
-.hero{
-  display:flex;
-  gap:14px;
-  align-items:flex-start;
-  flex-wrap:wrap;
-}
-
-.hero img{
-  width: 320px;
-  max-width: 100%;
-  height:auto;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-}
-
-.pdf{
-  width:100%;
+iframe {
+  width: 100%;
   height: 80vh;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background:#0b0f14;
+  border: 1px solid #aaa;
+  margin-bottom: 20px;
 }
 
-.qblock{
-  display:grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  margin-top: 14px;
+.question {
+  margin: 20px 0;
 }
 
-.q{
-  padding: 12px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: rgba(255,255,255,.03);
+textarea {
+  width: 100%;
+  min-height: 90px;
+  font-size: 0.95em;
 }
 
-.q h3{margin:0 0 10px 0; font-size:14px}
-textarea{
-  width:100%;
-  min-height: 92px;
-  resize: vertical;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(10,14,20,.75);
-  color: var(--text);
-  padding: 10px;
-  font-size: 14px;
-  line-height: 1.35;
-}
-textarea:focus{outline: 2px solid rgba(125,211,252,.25); border-color: rgba(125,211,252,.25)}
-
-details{
-  margin-top: 10px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,.03);
-  padding: 10px 12px;
-}
-details summary{
-  cursor:pointer;
-  font-weight:600;
-  color: var(--accent);
-}
-.synlist{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:8px;
-}
-.pill{
-  font-size: 12px;
-  color: var(--text);
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,.04);
-  padding: 6px 10px;
-  border-radius: 999px;
+.buttons {
+  margin: 30px 0;
 }
 
-.section-title{
-  display:flex; align-items:baseline; justify-content:space-between; gap:10px;
-  margin: 0 0 10px 0;
-}
-
-.list{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 10px;
-}
-
-.linkcard{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  padding: 10px 12px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,.03);
-}
-.linkcard:hover{background: rgba(255,255,255,.06)}
-.linkcard .k{font-weight:650}
-.progress{
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.footer{
-  margin-top: 18px;
-  color: var(--muted);
-  font-size: 12px;
+button, a {
+  margin-right: 10px;
 }

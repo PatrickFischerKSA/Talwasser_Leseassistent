@@ -1,75 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Talwasser – II_03</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="logic.js"></script>
+<meta charset="UTF-8">
+<title>Talwasser – Teil II, Kapitel 3</title>
+<link rel="stylesheet" href="style.css">
+<script src="logic.js"></script>
 </head>
-<body onload="initChapter('II_03')">
-  <div class="container">
-    <div class="topbar">
-      <div class="brand">
-        <h1>Talwasser – II_03</h1>
-        <div class="sub"><a href="index.html">← Zur Übersicht</a></div>
-      </div>
-      <div class="actions">
-        <button class="btn danger" onclick="resetChapter('II_03')">Reset: dieses Kapitel</button>
-        <a class="btn primary" href="index.html">Übersicht</a>
-      </div>
-    </div>
+<body onload="loadAnswer('II_03_q1');loadAnswer('II_03_q2')">
+<a href="index.html">← Zur Übersicht</a>
+<h1>Talwasser – Teil II, Kapitel 3</h1>
+<iframe src="II_03.pdf"></iframe>
 
-    <div class="card hero">
-      <img id="heroImage" alt="Kapitelbild">
-      <div class="muted small">
-        <div><strong>PDF:</strong> II_03.pdf</div>
-        <div>Wenn das PDF nicht lädt: prüfe Dateiname & dass es im Repo-Root liegt.</div>
-      </div>
-    </div>
+<div class="question">
+<p>1. Welche zentrale Beobachtung oder Handlung ist in diesem Kapitel entscheidend?</p>
+<textarea id="II_03_q1" oninput="saveAnswer('II_03_q1')"></textarea>
+</div>
 
-    <div class="card">
-      <iframe class="pdf" src="II_03.pdf#view=FitH"></iframe>
-    </div>
+<div class="question">
+<p>2. Welche Stimmung, welches Motiv oder welcher Gedanke prägt dieses Kapitel besonders?</p>
+<textarea id="II_03_q2" oninput="saveAnswer('II_03_q2')"></textarea>
+</div>
 
-    <div class="card">
-      <h2>Fragen</h2>
-
-      <div class="qblock">
-        <div class="q">
-          <h3>1) Wie wird Veränderung als unumkehrbar dargestellt?</h3>
-          <textarea id="answer1" placeholder="Antwort …" oninput="saveText('II_03','a1',this.value)"></textarea>
-
-          <details>
-            <summary>Sofortkorrektur / Lösungsvorschlag</summary>
-            <div class="muted" style="margin-top:8px;"><strong>Erwartungshorizont:</strong> Die alte Ordnung kann nicht vollständig wiederhergestellt werden.</div>
-            <div class="synlist">
-              <span class="pill">Veränderung / Wandel</span>
-<span class="pill">unumkehrbar / dauerhaft</span>
-            </div>
-          </details>
-        </div>
-
-        <div class="q">
-          <h3>2) Welche Reaktionen löst diese Erkenntnis aus?</h3>
-          <textarea id="answer2" placeholder="Antwort …" oninput="saveText('II_03','a2',this.value)"></textarea>
-
-          <details>
-            <summary>Sofortkorrektur / Lösungsvorschlag</summary>
-            <div class="muted" style="margin-top:8px;"><strong>Erwartungshorizont:</strong> Zwischen Akzeptanz und Widerstand entsteht Spannung.</div>
-            <div class="synlist">
-              <span class="pill">Akzeptanz / Annahme</span>
-<span class="pill">Widerstand / Ablehnung</span>
-            </div>
-          </details>
-        </div>
-
-        <div class="q">
-          <h3>Eigene Beobachtungen</h3>
-          <textarea id="observations" placeholder="Notizen …" oninput="saveText('II_03','obs',this.value)"></textarea>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="buttons">
+<button onclick="resetChapter('II_03')">Reset Kapitel</button>
+</div>
 </body>
 </html>
