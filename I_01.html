@@ -1,43 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Teil I – Kapitel 1</title>
-  <link rel="stylesheet" href="style.css"/>
-  <script src="logic.js" defer></script>
-  <script src="export.js" defer></script>
+  <meta charset="UTF-8">
+  <title>Talwasser – I_01</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-  <div class="topbar">
-    <a href="index.html">← Übersicht</a>
-    <button class="btn" id="exportBtn">Antworten als PDF exportieren</button>
-        <button class="btn secondary" id="resetBtn" title="Dieses Kapitel zurücksetzen">Reset</button>
-  </div>
+  <div class="container">
+    <a href="index.html">← Zur Übersicht</a>
+    <h1>Talwasser – Kapitel I_01</h1>
 
-  <h2>Teil I – Kapitel 1</h2>
+    <iframe src="I_01.pdf"></iframe>
 
-  <div class="grid">
-    <div>
-      <iframe class="pdf" src="I_01.pdf" title="PDF: Talwasser_I_1.pdf"></iframe>
-      <p class="small">Wenn hier <b>404</b> steht: Prüfe Dateiname exakt (<i>Gross/Klein</i>) und dass das PDF im Root liegt.</p>
+    <div class="question">
+      <h3>1. Wie wird die Ausgangssituation des Tals als verletzlich beschrieben?</h3>
+      <textarea placeholder="Deine Antwort …"></textarea>
+      <details>
+        <summary>Sofortkorrektur / Erwartungshorizont</summary>
+        <p>Das Tal erscheint abhängig von äusseren Kräften und naturgegebenen Bedingungen.</p>
+        <p><strong>Synonyme:</strong> verletzlich / bedroht; abhängig / ausgeliefert</p>
+      </details>
     </div>
-    <div>
-      <h3>Fragen</h3>
-      <div id="questions"></div>
-      <hr/>
-      <div class="qcard">
-        <div class="qtitle">Eigene Beobachtungen</div>
-        <textarea id="comment" rows="6" placeholder="Notizen, Beobachtungen, Zitate…"></textarea>
-        <div class="small">Wird automatisch gespeichert (LocalStorage im Browser).</div>
-      </div>
+
+    <div class="question">
+      <h3>2. Welche Grundstimmung prägt den Beginn des Romans?</h3>
+      <textarea placeholder="Deine Antwort …"></textarea>
+      <details>
+        <summary>Sofortkorrektur / Erwartungshorizont</summary>
+        <p>Eine Mischung aus Unsicherheit, Spannung und latenter Angst.</p>
+        <p><strong>Synonyme:</strong> Unsicherheit / Ungewissheit; Angst / Bedrohung</p>
+      </details>
     </div>
   </div>
-</div>
-
-<script>
-document.addEventListener("DOMContentLoaded", ()=> initChapter("I", 1));
-</script>
 </body>
 </html>
