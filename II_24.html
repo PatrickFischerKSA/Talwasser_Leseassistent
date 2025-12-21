@@ -1,28 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<title>Talwasser – Teil II, Kapitel 24</title>
-<link rel="stylesheet" href="style.css">
-<script src="logic.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Talwasser – II_24</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="logic.js"></script>
 </head>
-<body onload="loadAnswer('II_24_q1');loadAnswer('II_24_q2')">
-<a href="index.html">← Zur Übersicht</a>
-<h1>Talwasser – Teil II, Kapitel 24</h1>
-<iframe src="II_24.pdf"></iframe>
+<body onload="initChapter('II_24')">
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <h1>Talwasser – II_24</h1>
+        <div class="sub"><a href="index.html">← Zur Übersicht</a></div>
+      </div>
+      <div class="actions">
+        <button class="btn danger" onclick="resetChapter('II_24')">Reset: dieses Kapitel</button>
+        <a class="btn primary" href="index.html">Übersicht</a>
+      </div>
+    </div>
 
-<div class="question">
-<p>1. Welche zentrale Beobachtung oder Handlung ist in diesem Kapitel entscheidend?</p>
-<textarea id="II_24_q1" oninput="saveAnswer('II_24_q1')"></textarea>
-</div>
+    <div class="card hero">
+      <img id="heroImage" alt="Kapitelbild">
+      <div class="muted small">
+        <div><strong>PDF:</strong> II_24.pdf</div>
+        <div>Wenn das PDF nicht lädt: prüfe Dateiname & dass es im Repo-Root liegt.</div>
+      </div>
+    </div>
 
-<div class="question">
-<p>2. Welche Stimmung, welches Motiv oder welcher Gedanke prägt dieses Kapitel besonders?</p>
-<textarea id="II_24_q2" oninput="saveAnswer('II_24_q2')"></textarea>
-</div>
+    <div class="card">
+      <iframe class="pdf" src="II_24.pdf#view=FitH"></iframe>
+    </div>
 
-<div class="buttons">
-<button onclick="resetChapter('II_24')">Reset Kapitel</button>
-</div>
+    <div class="card">
+      <h2>Fragen</h2>
+
+      <div class="qblock">
+        <div class="q">
+          <h3>1) Wie verändert sich das Verhältnis zur Vergangenheit?</h3>
+          <textarea id="answer1" placeholder="Antwort …" oninput="saveText('II_24','a1',this.value)"></textarea>
+
+          <details>
+            <summary>Sofortkorrektur / Lösungsvorschlag</summary>
+            <div class="muted" style="margin-top:8px;"><strong>Erwartungshorizont:</strong> Vergangenheit wird integriert, nicht verdrängt.</div>
+            <div class="synlist">
+              <span class="pill">Vergangenheit / Geschichte</span>
+<span class="pill">Integration / Einbindung</span>
+            </div>
+          </details>
+        </div>
+
+        <div class="q">
+          <h3>2) Warum ist diese Integration wichtig?</h3>
+          <textarea id="answer2" placeholder="Antwort …" oninput="saveText('II_24','a2',this.value)"></textarea>
+
+          <details>
+            <summary>Sofortkorrektur / Lösungsvorschlag</summary>
+            <div class="muted" style="margin-top:8px;"><strong>Erwartungshorizont:</strong> Sie ermöglicht Weiterentwicklung.</div>
+            <div class="synlist">
+              <span class="pill">Weiterentwicklung / Wachstum</span>
+<span class="pill">Bedeutung / Sinn</span>
+            </div>
+          </details>
+        </div>
+
+        <div class="q">
+          <h3>Eigene Beobachtungen</h3>
+          <textarea id="observations" placeholder="Notizen …" oninput="saveText('II_24','obs',this.value)"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

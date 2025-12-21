@@ -1,28 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<title>Talwasser – Teil I, Kapitel 13</title>
-<link rel="stylesheet" href="style.css">
-<script src="logic.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Talwasser – I_13</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="logic.js"></script>
 </head>
-<body onload="loadAnswer('I_13_q1');loadAnswer('I_13_q2')">
-<a href="index.html">← Zur Übersicht</a>
-<h1>Talwasser – Teil I, Kapitel 13</h1>
-<iframe src="I_13.pdf"></iframe>
+<body onload="initChapter('I_13')">
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <h1>Talwasser – I_13</h1>
+        <div class="sub"><a href="index.html">← Zur Übersicht</a></div>
+      </div>
+      <div class="actions">
+        <button class="btn danger" onclick="resetChapter('I_13')">Reset: dieses Kapitel</button>
+        <a class="btn primary" href="index.html">Übersicht</a>
+      </div>
+    </div>
 
-<div class="question">
-<p>1. Welche zentrale Beobachtung oder Handlung ist in diesem Kapitel entscheidend?</p>
-<textarea id="I_13_q1" oninput="saveAnswer('I_13_q1')"></textarea>
-</div>
+    <div class="card hero">
+      <img id="heroImage" alt="Kapitelbild">
+      <div class="muted small">
+        <div><strong>PDF:</strong> I_13.pdf</div>
+        <div>Wenn das PDF nicht lädt: prüfe Dateiname & dass es im Repo-Root liegt.</div>
+      </div>
+    </div>
 
-<div class="question">
-<p>2. Welche Stimmung, welches Motiv oder welcher Gedanke prägt dieses Kapitel besonders?</p>
-<textarea id="I_13_q2" oninput="saveAnswer('I_13_q2')"></textarea>
-</div>
+    <div class="card">
+      <iframe class="pdf" src="I_13.pdf#view=FitH"></iframe>
+    </div>
 
-<div class="buttons">
-<button onclick="resetChapter('I_13')">Reset Kapitel</button>
-</div>
+    <div class="card">
+      <h2>Fragen</h2>
+
+      <div class="qblock">
+        <div class="q">
+          <h3>1) Wie wird Tod dargestellt?</h3>
+          <textarea id="answer1" placeholder="Antwort …" oninput="saveText('I_13','a1',this.value)"></textarea>
+
+          <details>
+            <summary>Sofortkorrektur / Lösungsvorschlag</summary>
+            <div class="muted" style="margin-top:8px;"><strong>Erwartungshorizont:</strong> Der Tod erscheint anonym und entindividualisiert.</div>
+            <div class="synlist">
+              <span class="pill">Tod / Sterben</span>
+<span class="pill">anonym / unpersönlich</span>
+            </div>
+          </details>
+        </div>
+
+        <div class="q">
+          <h3>2) Welche Wirkung hat dies auf die Wahrnehmung des Geschehens?</h3>
+          <textarea id="answer2" placeholder="Antwort …" oninput="saveText('I_13','a2',this.value)"></textarea>
+
+          <details>
+            <summary>Sofortkorrektur / Lösungsvorschlag</summary>
+            <div class="muted" style="margin-top:8px;"><strong>Erwartungshorizont:</strong> Das Ausmass der Situation tritt in den Vordergrund.</div>
+            <div class="synlist">
+              <span class="pill">Ausmass / Dimension</span>
+<span class="pill">Wahrnehmung / Eindruck</span>
+            </div>
+          </details>
+        </div>
+
+        <div class="q">
+          <h3>Eigene Beobachtungen</h3>
+          <textarea id="observations" placeholder="Notizen …" oninput="saveText('I_13','obs',this.value)"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

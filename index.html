@@ -1,56 +1,415 @@
-<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Talwasser – Übersicht</title><link rel='stylesheet' href='style.css'></head><body><h1>Talwasser – Leseassistent</h1>
-<h2>Teil I</h2><ul>
-<li><a href='I_01.html'>Kapitel I_01</a></li>
-<li><a href='I_02.html'>Kapitel I_02</a></li>
-<li><a href='I_03.html'>Kapitel I_03</a></li>
-<li><a href='I_04.html'>Kapitel I_04</a></li>
-<li><a href='I_05.html'>Kapitel I_05</a></li>
-<li><a href='I_06.html'>Kapitel I_06</a></li>
-<li><a href='I_07.html'>Kapitel I_07</a></li>
-<li><a href='I_08.html'>Kapitel I_08</a></li>
-<li><a href='I_09.html'>Kapitel I_09</a></li>
-<li><a href='I_10.html'>Kapitel I_10</a></li>
-<li><a href='I_11.html'>Kapitel I_11</a></li>
-<li><a href='I_12.html'>Kapitel I_12</a></li>
-<li><a href='I_13.html'>Kapitel I_13</a></li>
-<li><a href='I_14.html'>Kapitel I_14</a></li>
-<li><a href='I_15.html'>Kapitel I_15</a></li>
-<li><a href='I_16.html'>Kapitel I_16</a></li>
-<li><a href='I_17.html'>Kapitel I_17</a></li>
-<li><a href='I_18.html'>Kapitel I_18</a></li>
-<li><a href='I_19.html'>Kapitel I_19</a></li>
-<li><a href='I_20.html'>Kapitel I_20</a></li>
-<li><a href='I_21.html'>Kapitel I_21</a></li>
-<li><a href='I_22.html'>Kapitel I_22</a></li>
-</ul><h2>Teil II</h2><ul>
-<li><a href='II_01.html'>Kapitel II_01</a></li>
-<li><a href='II_02.html'>Kapitel II_02</a></li>
-<li><a href='II_03.html'>Kapitel II_03</a></li>
-<li><a href='II_04.html'>Kapitel II_04</a></li>
-<li><a href='II_05.html'>Kapitel II_05</a></li>
-<li><a href='II_06.html'>Kapitel II_06</a></li>
-<li><a href='II_07.html'>Kapitel II_07</a></li>
-<li><a href='II_08.html'>Kapitel II_08</a></li>
-<li><a href='II_09.html'>Kapitel II_09</a></li>
-<li><a href='II_10.html'>Kapitel II_10</a></li>
-<li><a href='II_11.html'>Kapitel II_11</a></li>
-<li><a href='II_12.html'>Kapitel II_12</a></li>
-<li><a href='II_13.html'>Kapitel II_13</a></li>
-<li><a href='II_14.html'>Kapitel II_14</a></li>
-<li><a href='II_15.html'>Kapitel II_15</a></li>
-<li><a href='II_16.html'>Kapitel II_16</a></li>
-<li><a href='II_17.html'>Kapitel II_17</a></li>
-<li><a href='II_18.html'>Kapitel II_18</a></li>
-<li><a href='II_19.html'>Kapitel II_19</a></li>
-<li><a href='II_20.html'>Kapitel II_20</a></li>
-<li><a href='II_21.html'>Kapitel II_21</a></li>
-<li><a href='II_22.html'>Kapitel II_22</a></li>
-<li><a href='II_23.html'>Kapitel II_23</a></li>
-<li><a href='II_24.html'>Kapitel II_24</a></li>
-<li><a href='II_25.html'>Kapitel II_25</a></li>
-<li><a href='II_26.html'>Kapitel II_26</a></li>
-<li><a href='II_27.html'>Kapitel II_27</a></li>
-<li><a href='II_28.html'>Kapitel II_28</a></li>
-<li><a href='II_29.html'>Kapitel II_29</a></li>
-<li><a href='II_30.html'>Kapitel II_30</a></li>
-</ul></body></html>
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Talwasser – Leseassistent</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="logic.js"></script>
+</head>
+<body onload="updateProgressBadges()">
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <h1>Talwasser – Leseassistent</h1>
+        <div class="sub">Übersicht • Antworten werden lokal (LocalStorage) gespeichert</div>
+      </div>
+      <div class="actions">
+        <button class="btn danger" onclick="resetAll()">Reset: alles</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">
+        <h2>Fortschritt</h2>
+        <div class="muted small"><span id="progressDone">0</span> / <span id="progressTotal">0</span> Kapitel erledigt</div>
+      </div>
+      <div class="muted small">
+        Ein Kapitel gilt als „erledigt“, wenn beide Antwortfelder ausgefüllt sind.
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Teil I</h2>
+        <div class="list">
+          <a class="linkcard" href="I_01.html">
+              <div>
+                <div class="k">I_01</div>
+                <div class="progress" data-chapter-id="I_01">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_02.html">
+              <div>
+                <div class="k">I_02</div>
+                <div class="progress" data-chapter-id="I_02">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_03.html">
+              <div>
+                <div class="k">I_03</div>
+                <div class="progress" data-chapter-id="I_03">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_04.html">
+              <div>
+                <div class="k">I_04</div>
+                <div class="progress" data-chapter-id="I_04">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_05.html">
+              <div>
+                <div class="k">I_05</div>
+                <div class="progress" data-chapter-id="I_05">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_06.html">
+              <div>
+                <div class="k">I_06</div>
+                <div class="progress" data-chapter-id="I_06">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_07.html">
+              <div>
+                <div class="k">I_07</div>
+                <div class="progress" data-chapter-id="I_07">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_08.html">
+              <div>
+                <div class="k">I_08</div>
+                <div class="progress" data-chapter-id="I_08">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_09.html">
+              <div>
+                <div class="k">I_09</div>
+                <div class="progress" data-chapter-id="I_09">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_10.html">
+              <div>
+                <div class="k">I_10</div>
+                <div class="progress" data-chapter-id="I_10">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_11.html">
+              <div>
+                <div class="k">I_11</div>
+                <div class="progress" data-chapter-id="I_11">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_12.html">
+              <div>
+                <div class="k">I_12</div>
+                <div class="progress" data-chapter-id="I_12">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_13.html">
+              <div>
+                <div class="k">I_13</div>
+                <div class="progress" data-chapter-id="I_13">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_14.html">
+              <div>
+                <div class="k">I_14</div>
+                <div class="progress" data-chapter-id="I_14">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_15.html">
+              <div>
+                <div class="k">I_15</div>
+                <div class="progress" data-chapter-id="I_15">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_16.html">
+              <div>
+                <div class="k">I_16</div>
+                <div class="progress" data-chapter-id="I_16">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_17.html">
+              <div>
+                <div class="k">I_17</div>
+                <div class="progress" data-chapter-id="I_17">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_18.html">
+              <div>
+                <div class="k">I_18</div>
+                <div class="progress" data-chapter-id="I_18">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_19.html">
+              <div>
+                <div class="k">I_19</div>
+                <div class="progress" data-chapter-id="I_19">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_20.html">
+              <div>
+                <div class="k">I_20</div>
+                <div class="progress" data-chapter-id="I_20">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_21.html">
+              <div>
+                <div class="k">I_21</div>
+                <div class="progress" data-chapter-id="I_21">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="I_22.html">
+              <div>
+                <div class="k">I_22</div>
+                <div class="progress" data-chapter-id="I_22">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Teil II</h2>
+        <div class="list">
+          <a class="linkcard" href="II_01.html">
+              <div>
+                <div class="k">II_01</div>
+                <div class="progress" data-chapter-id="II_01">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_02.html">
+              <div>
+                <div class="k">II_02</div>
+                <div class="progress" data-chapter-id="II_02">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_03.html">
+              <div>
+                <div class="k">II_03</div>
+                <div class="progress" data-chapter-id="II_03">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_04.html">
+              <div>
+                <div class="k">II_04</div>
+                <div class="progress" data-chapter-id="II_04">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_05.html">
+              <div>
+                <div class="k">II_05</div>
+                <div class="progress" data-chapter-id="II_05">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_06.html">
+              <div>
+                <div class="k">II_06</div>
+                <div class="progress" data-chapter-id="II_06">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_07.html">
+              <div>
+                <div class="k">II_07</div>
+                <div class="progress" data-chapter-id="II_07">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_08.html">
+              <div>
+                <div class="k">II_08</div>
+                <div class="progress" data-chapter-id="II_08">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_09.html">
+              <div>
+                <div class="k">II_09</div>
+                <div class="progress" data-chapter-id="II_09">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_10.html">
+              <div>
+                <div class="k">II_10</div>
+                <div class="progress" data-chapter-id="II_10">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_11.html">
+              <div>
+                <div class="k">II_11</div>
+                <div class="progress" data-chapter-id="II_11">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_12.html">
+              <div>
+                <div class="k">II_12</div>
+                <div class="progress" data-chapter-id="II_12">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_13.html">
+              <div>
+                <div class="k">II_13</div>
+                <div class="progress" data-chapter-id="II_13">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_14.html">
+              <div>
+                <div class="k">II_14</div>
+                <div class="progress" data-chapter-id="II_14">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_15.html">
+              <div>
+                <div class="k">II_15</div>
+                <div class="progress" data-chapter-id="II_15">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_16.html">
+              <div>
+                <div class="k">II_16</div>
+                <div class="progress" data-chapter-id="II_16">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_17.html">
+              <div>
+                <div class="k">II_17</div>
+                <div class="progress" data-chapter-id="II_17">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_18.html">
+              <div>
+                <div class="k">II_18</div>
+                <div class="progress" data-chapter-id="II_18">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_19.html">
+              <div>
+                <div class="k">II_19</div>
+                <div class="progress" data-chapter-id="II_19">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_20.html">
+              <div>
+                <div class="k">II_20</div>
+                <div class="progress" data-chapter-id="II_20">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_21.html">
+              <div>
+                <div class="k">II_21</div>
+                <div class="progress" data-chapter-id="II_21">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_22.html">
+              <div>
+                <div class="k">II_22</div>
+                <div class="progress" data-chapter-id="II_22">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_23.html">
+              <div>
+                <div class="k">II_23</div>
+                <div class="progress" data-chapter-id="II_23">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_24.html">
+              <div>
+                <div class="k">II_24</div>
+                <div class="progress" data-chapter-id="II_24">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_25.html">
+              <div>
+                <div class="k">II_25</div>
+                <div class="progress" data-chapter-id="II_25">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_26.html">
+              <div>
+                <div class="k">II_26</div>
+                <div class="progress" data-chapter-id="II_26">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_27.html">
+              <div>
+                <div class="k">II_27</div>
+                <div class="progress" data-chapter-id="II_27">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_28.html">
+              <div>
+                <div class="k">II_28</div>
+                <div class="progress" data-chapter-id="II_28">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_29.html">
+              <div>
+                <div class="k">II_29</div>
+                <div class="progress" data-chapter-id="II_29">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+<a class="linkcard" href="II_30.html">
+              <div>
+                <div class="k">II_30</div>
+                <div class="progress" data-chapter-id="II_30">… offen</div>
+              </div>
+              <div class="muted small">→</div>
+            </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Hinweis: Bilder & PDFs liegen im Repo-Root und werden von den Kapitel-Seiten direkt geladen.
+    </div>
+  </div>
+</body>
+</html>

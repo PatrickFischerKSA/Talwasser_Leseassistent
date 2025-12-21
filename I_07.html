@@ -1,28 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<title>Talwasser – Teil I, Kapitel 7</title>
-<link rel="stylesheet" href="style.css">
-<script src="logic.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Talwasser – I_07</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="logic.js"></script>
 </head>
-<body onload="loadAnswer('I_07_q1');loadAnswer('I_07_q2')">
-<a href="index.html">← Zur Übersicht</a>
-<h1>Talwasser – Teil I, Kapitel 7</h1>
-<iframe src="I_07.pdf"></iframe>
+<body onload="initChapter('I_07')">
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <h1>Talwasser – I_07</h1>
+        <div class="sub"><a href="index.html">← Zur Übersicht</a></div>
+      </div>
+      <div class="actions">
+        <button class="btn danger" onclick="resetChapter('I_07')">Reset: dieses Kapitel</button>
+        <a class="btn primary" href="index.html">Übersicht</a>
+      </div>
+    </div>
 
-<div class="question">
-<p>1. Welche zentrale Beobachtung oder Handlung ist in diesem Kapitel entscheidend?</p>
-<textarea id="I_07_q1" oninput="saveAnswer('I_07_q1')"></textarea>
-</div>
+    <div class="card hero">
+      <img id="heroImage" alt="Kapitelbild">
+      <div class="muted small">
+        <div><strong>PDF:</strong> I_07.pdf</div>
+        <div>Wenn das PDF nicht lädt: prüfe Dateiname & dass es im Repo-Root liegt.</div>
+      </div>
+    </div>
 
-<div class="question">
-<p>2. Welche Stimmung, welches Motiv oder welcher Gedanke prägt dieses Kapitel besonders?</p>
-<textarea id="I_07_q2" oninput="saveAnswer('I_07_q2')"></textarea>
-</div>
+    <div class="card">
+      <iframe class="pdf" src="I_07.pdf#view=FitH"></iframe>
+    </div>
 
-<div class="buttons">
-<button onclick="resetChapter('I_07')">Reset Kapitel</button>
-</div>
+    <div class="card">
+      <h2>Fragen</h2>
+
+      <div class="qblock">
+        <div class="q">
+          <h3>1) Wie wird politische Entscheidungsmacht wahrgenommen?</h3>
+          <textarea id="answer1" placeholder="Antwort …" oninput="saveText('I_07','a1',this.value)"></textarea>
+
+          <details>
+            <summary>Sofortkorrektur / Lösungsvorschlag</summary>
+            <div class="muted" style="margin-top:8px;"><strong>Erwartungshorizont:</strong> Entscheidungen erscheinen fern und schwer beeinflussbar.</div>
+            <div class="synlist">
+              <span class="pill">Macht / Entscheidung</span>
+<span class="pill">Distanz / Ferne</span>
+            </div>
+          </details>
+        </div>
+
+        <div class="q">
+          <h3>2) Welche Gefühle löst dies aus?</h3>
+          <textarea id="answer2" placeholder="Antwort …" oninput="saveText('I_07','a2',this.value)"></textarea>
+
+          <details>
+            <summary>Sofortkorrektur / Lösungsvorschlag</summary>
+            <div class="muted" style="margin-top:8px;"><strong>Erwartungshorizont:</strong> Ohnmacht und Frustration prägen die Haltung.</div>
+            <div class="synlist">
+              <span class="pill">Ohnmacht / Machtlosigkeit</span>
+<span class="pill">Frustration / Ärger</span>
+            </div>
+          </details>
+        </div>
+
+        <div class="q">
+          <h3>Eigene Beobachtungen</h3>
+          <textarea id="observations" placeholder="Notizen …" oninput="saveText('I_07','obs',this.value)"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

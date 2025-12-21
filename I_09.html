@@ -1,28 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<title>Talwasser – Teil I, Kapitel 9</title>
-<link rel="stylesheet" href="style.css">
-<script src="logic.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Talwasser – I_09</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="logic.js"></script>
 </head>
-<body onload="loadAnswer('I_09_q1');loadAnswer('I_09_q2')">
-<a href="index.html">← Zur Übersicht</a>
-<h1>Talwasser – Teil I, Kapitel 9</h1>
-<iframe src="I_09.pdf"></iframe>
+<body onload="initChapter('I_09')">
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <h1>Talwasser – I_09</h1>
+        <div class="sub"><a href="index.html">← Zur Übersicht</a></div>
+      </div>
+      <div class="actions">
+        <button class="btn danger" onclick="resetChapter('I_09')">Reset: dieses Kapitel</button>
+        <a class="btn primary" href="index.html">Übersicht</a>
+      </div>
+    </div>
 
-<div class="question">
-<p>1. Welche zentrale Beobachtung oder Handlung ist in diesem Kapitel entscheidend?</p>
-<textarea id="I_09_q1" oninput="saveAnswer('I_09_q1')"></textarea>
-</div>
+    <div class="card hero">
+      <img id="heroImage" alt="Kapitelbild">
+      <div class="muted small">
+        <div><strong>PDF:</strong> I_09.pdf</div>
+        <div>Wenn das PDF nicht lädt: prüfe Dateiname & dass es im Repo-Root liegt.</div>
+      </div>
+    </div>
 
-<div class="question">
-<p>2. Welche Stimmung, welches Motiv oder welcher Gedanke prägt dieses Kapitel besonders?</p>
-<textarea id="I_09_q2" oninput="saveAnswer('I_09_q2')"></textarea>
-</div>
+    <div class="card">
+      <iframe class="pdf" src="I_09.pdf#view=FitH"></iframe>
+    </div>
 
-<div class="buttons">
-<button onclick="resetChapter('I_09')">Reset Kapitel</button>
-</div>
+    <div class="card">
+      <h2>Fragen</h2>
+
+      <div class="qblock">
+        <div class="q">
+          <h3>1) Wie verändert sich der Blick auf Zukunftspläne?</h3>
+          <textarea id="answer1" placeholder="Antwort …" oninput="saveText('I_09','a1',this.value)"></textarea>
+
+          <details>
+            <summary>Sofortkorrektur / Lösungsvorschlag</summary>
+            <div class="muted" style="margin-top:8px;"><strong>Erwartungshorizont:</strong> Zukunft erscheint weniger planbar und offen.</div>
+            <div class="synlist">
+              <span class="pill">Zukunft / Perspektive</span>
+<span class="pill">offen / unsicher</span>
+            </div>
+          </details>
+        </div>
+
+        <div class="q">
+          <h3>2) Welche Strategien im Umgang mit dieser Unsicherheit werden sichtbar?</h3>
+          <textarea id="answer2" placeholder="Antwort …" oninput="saveText('I_09','a2',this.value)"></textarea>
+
+          <details>
+            <summary>Sofortkorrektur / Lösungsvorschlag</summary>
+            <div class="muted" style="margin-top:8px;"><strong>Erwartungshorizont:</strong> Anpassung und vorsichtiges Abwarten.</div>
+            <div class="synlist">
+              <span class="pill">Anpassung / Flexibilität</span>
+<span class="pill">Abwarten / Zurückhaltung</span>
+            </div>
+          </details>
+        </div>
+
+        <div class="q">
+          <h3>Eigene Beobachtungen</h3>
+          <textarea id="observations" placeholder="Notizen …" oninput="saveText('I_09','obs',this.value)"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
