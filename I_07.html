@@ -1,28 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<title>Talwasser – Teil I, Kapitel 7</title>
-<link rel="stylesheet" href="style.css">
-<script src="logic.js"></script>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Teil I – Kapitel 7</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="logic.js" defer></script>
+  <script src="export.js" defer></script>
 </head>
-<body onload="loadAnswer('I_07_q1');loadAnswer('I_07_q2')">
-<a href="index.html">← Zur Übersicht</a>
-<h1>Talwasser – Teil I, Kapitel 7</h1>
-<iframe src="I_07.pdf"></iframe>
+<body>
+<div class="container">
+  <div class="topbar">
+    <a href="index.html">← Übersicht</a>
+    <button class="btn" id="exportBtn">Antworten als PDF exportieren</button>
+        <button class="btn secondary" id="resetBtn" title="Dieses Kapitel zurücksetzen">Reset</button>
+  </div>
 
-<div class="question">
-<p>1. Welche zentrale Beobachtung oder Handlung ist in diesem Kapitel entscheidend?</p>
-<textarea id="I_07_q1" oninput="saveAnswer('I_07_q1')"></textarea>
+  <h2>Teil I – Kapitel 7</h2>
+
+  <div class="grid">
+    <div>
+      <iframe class="pdf" src="I_07.pdf" title="PDF: Talwasser_I_7.pdf"></iframe>
+      <p class="small">Wenn hier <b>404</b> steht: Prüfe Dateiname exakt (<i>Gross/Klein</i>) und dass das PDF im Root liegt.</p>
+    </div>
+    <div>
+      <h3>Fragen</h3>
+      <div id="questions"></div>
+      <hr/>
+      <div class="qcard">
+        <div class="qtitle">Eigene Beobachtungen</div>
+        <textarea id="comment" rows="6" placeholder="Notizen, Beobachtungen, Zitate…"></textarea>
+        <div class="small">Wird automatisch gespeichert (LocalStorage im Browser).</div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="question">
-<p>2. Welche Stimmung, welches Motiv oder welcher Gedanke prägt dieses Kapitel besonders?</p>
-<textarea id="I_07_q2" oninput="saveAnswer('I_07_q2')"></textarea>
-</div>
-
-<div class="buttons">
-<button onclick="resetChapter('I_07')">Reset Kapitel</button>
-</div>
+<script>
+document.addEventListener("DOMContentLoaded", ()=> initChapter("I", 7));
+</script>
 </body>
 </html>
