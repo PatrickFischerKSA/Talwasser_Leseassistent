@@ -1,6 +1,10 @@
-:root { --container-w: 900px; }
+:root {
+  --container-w: 900px;
+}
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -22,15 +26,45 @@ body {
   overflow: hidden;
 }
 
-.toprow{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
+.frontpage .container {
+  max-width: 760px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(2px);
 }
 
-h1 { margin: 10px 0 0 0; }
+h1 {
+  margin-top: 0;
+}
+
+.frontpage h2 {
+  margin-top: 40px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 6px;
+}
+
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.chapter-grid a {
+  display: block;
+  text-align: center;
+  padding: 10px 0;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: Georgia, "Times New Roman", serif;
+  text-decoration: none;
+  color: #222;
+}
+
+.chapter-grid a:hover {
+  background: #ffffff;
+  border-color: #aaa;
+}
 
 .chapter-image {
   display: block;
@@ -52,7 +86,9 @@ iframe {
   margin: 0 0 30px 0;
 }
 
-.question { margin-bottom: 34px; }
+.question {
+  margin-bottom: 34px;
+}
 
 textarea {
   width: 100%;
@@ -66,7 +102,9 @@ textarea {
   background: #fff;
 }
 
-details { margin-top: 10px; }
+details {
+  margin-top: 10px;
+}
 
 .actions {
   display: flex;
@@ -85,24 +123,11 @@ button.reset {
   cursor: pointer;
 }
 
-button.reset:hover { background: #e9e9e9; }
-
-a { text-decoration: none; color: #333; }
-a:hover { text-decoration: underline; }
-
-.index-grid{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap:10px;
-  margin-top: 14px;
+button.reset:hover {
+  background: #e9e9e9;
 }
 
-.chip{
-  display:block;
-  padding:10px 12px;
-  border:1px solid #ddd;
-  border-radius:6px;
-  background:#fafafa;
+a {
+  text-decoration: none;
+  color: #333;
 }
-.chip:hover{ background:#f2f2f2; }
-.small{ font-size:0.92rem; color:#444; }
