@@ -1,43 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Teil II – Kapitel 25</title>
-  <link rel="stylesheet" href="style.css"/>
-  <script src="logic.js" defer></script>
-  <script src="export.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Talwasser – II_25</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="logic.js"></script>
 </head>
-<body>
-<div class="container">
-  <div class="topbar">
-    <a href="index.html">← Übersicht</a>
-    <button class="btn" id="exportBtn">Antworten als PDF exportieren</button>
-        <button class="btn secondary" id="resetBtn" title="Dieses Kapitel zurücksetzen">Reset</button>
-  </div>
 
-  <h2>Teil II – Kapitel 25</h2>
-
-  <div class="grid">
-    <div>
-      <iframe class="pdf" src="II_25.pdf" title="PDF: Talwasser_II_25.pdf"></iframe>
-      <p class="small">Wenn hier <b>404</b> steht: Prüfe Dateiname exakt (<i>Gross/Klein</i>) und dass das PDF im Root liegt.</p>
-    </div>
-    <div>
-      <h3>Fragen</h3>
-      <div id="questions"></div>
-      <hr/>
-      <div class="qcard">
-        <div class="qtitle">Eigene Beobachtungen</div>
-        <textarea id="comment" rows="6" placeholder="Notizen, Beobachtungen, Zitate…"></textarea>
-        <div class="small">Wird automatisch gespeichert (LocalStorage im Browser).</div>
+<body onload="initChapter('II_25')">
+  <div class="container">
+    <div class="toprow">
+      <a href="index.html">← Zur Übersicht</a>
+      <div class="actions">
+        <button class="reset" onclick="resetChapter('II_25')">Antworten zurücksetzen</button>
       </div>
     </div>
-  </div>
-</div>
 
-<script>
-document.addEventListener("DOMContentLoaded", ()=> initChapter("II", 25));
-</script>
+    <h1>Talwasser – Kapitel II_25</h1>
+
+    <img src="Alt_Innertal.jpg" alt="II_25" class="chapter-image">
+
+    <iframe src="II_25.pdf"></iframe>
+
+    <div class="question">
+      <h3>1. Wie wird Alltag erneut als gestaltbar dargestellt?</h3>
+      <textarea id="answer1" placeholder="Deine Antwort …"></textarea>
+      <details>
+        <summary>Sofortkorrektur / Erwartungshorizont</summary>
+        <p>Menschen übernehmen aktiv Verantwortung.</p>
+        <p><strong>Synonyme:</strong> gestaltbar / formbar; Verantwortung / Handlung</p>
+      </details>
+    </div>
+
+    <div class="question">
+      <h3>2. Welche Grenzen bleiben sichtbar?</h3>
+      <textarea id="answer2" placeholder="Deine Antwort …"></textarea>
+      <details>
+        <summary>Sofortkorrektur / Erwartungshorizont</summary>
+        <p>Nicht alles ist kontrollierbar.</p>
+        <p><strong>Synonyme:</strong> Grenze / Begrenzung; Kontrolle / Einfluss</p>
+      </details>
+    </div>
+
+    <div class="question">
+      <h3>Eigene Beobachtungen</h3>
+      <textarea id="observations" placeholder="Notizen …"></textarea>
+    </div>
+  </div>
 </body>
 </html>

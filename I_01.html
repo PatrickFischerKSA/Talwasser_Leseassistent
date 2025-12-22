@@ -5,55 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Talwasser – I_01</title>
   <link rel="stylesheet" href="style.css">
+  <script src="logic.js"></script>
 </head>
 
-<body>
+<body onload="initChapter('I_01')">
   <div class="container">
-    <a href="index.html">← Zur Übersicht</a>
+    <div class="toprow">
+      <a href="index.html">← Zur Übersicht</a>
+      <div class="actions">
+        <button class="reset" onclick="resetChapter('I_01')">Antworten zurücksetzen</button>
+      </div>
+    </div>
 
     <h1>Talwasser – Kapitel I_01</h1>
 
-    <!-- Kapitelbild (aus freigegebener Liste) -->
-    <img src="Waegitalersee.jpg" alt="Waegitalersee" class="chapter-image">
+    <img src="Waegitalersee.jpg" alt="I_01" class="chapter-image">
 
     <iframe src="I_01.pdf"></iframe>
 
     <div class="question">
       <h3>1. Wie wird die Ausgangssituation des Tals als verletzlich beschrieben?</h3>
-      <textarea placeholder="Deine Antwort …"></textarea>
+      <textarea id="answer1" placeholder="Deine Antwort …"></textarea>
       <details>
         <summary>Sofortkorrektur / Erwartungshorizont</summary>
-        <p>
-          Das Tal erscheint als empfindlicher Natur- und Lebensraum,
-          der von äusseren Eingriffen und übergeordneten Entscheidungen abhängig ist.
-        </p>
+        <p>Das Tal erscheint abhängig von äusseren Kräften und naturgegebenen Bedingungen.</p>
         <p><strong>Synonyme:</strong> verletzlich / bedroht; abhängig / ausgeliefert</p>
       </details>
     </div>
 
     <div class="question">
       <h3>2. Welche Grundstimmung prägt den Beginn des Romans?</h3>
-      <textarea placeholder="Deine Antwort …"></textarea>
+      <textarea id="answer2" placeholder="Deine Antwort …"></textarea>
       <details>
         <summary>Sofortkorrektur / Erwartungshorizont</summary>
-        <p>
-          Der Beginn ist von einer ruhigen, zugleich angespannten und
-          vorahnungsvollen Stimmung geprägt.
-        </p>
-        <p><strong>Synonyme:</strong> Spannung / Erwartung; Unsicherheit / latente Angst</p>
+        <p>Eine Mischung aus Unsicherheit, Spannung und latenter Angst.</p>
+        <p><strong>Synonyme:</strong> Unsicherheit / Ungewissheit; Angst / Bedrohung</p>
       </details>
     </div>
 
-    <div class="actions">
-      <button class="reset" onclick="resetAnswers()">Antworten zurücksetzen</button>
+    <div class="question">
+      <h3>Eigene Beobachtungen</h3>
+      <textarea id="observations" placeholder="Notizen …"></textarea>
     </div>
   </div>
-
-  <script>
-    function resetAnswers() {
-      if (!confirm("Alle Antworten in diesem Kapitel löschen?")) return;
-      document.querySelectorAll("textarea").forEach(t => t.value = "");
-    }
-  </script>
 </body>
 </html>

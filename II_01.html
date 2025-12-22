@@ -1,43 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Teil II – Kapitel 1</title>
-  <link rel="stylesheet" href="style.css"/>
-  <script src="logic.js" defer></script>
-  <script src="export.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Talwasser – II_01</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="logic.js"></script>
 </head>
-<body>
-<div class="container">
-  <div class="topbar">
-    <a href="index.html">← Übersicht</a>
-    <button class="btn" id="exportBtn">Antworten als PDF exportieren</button>
-        <button class="btn secondary" id="resetBtn" title="Dieses Kapitel zurücksetzen">Reset</button>
-  </div>
 
-  <h2>Teil II – Kapitel 1</h2>
-
-  <div class="grid">
-    <div>
-      <iframe class="pdf" src="II_01.pdf" title="PDF: Talwasser_II_1.pdf"></iframe>
-      <p class="small">Wenn hier <b>404</b> steht: Prüfe Dateiname exakt (<i>Gross/Klein</i>) und dass das PDF im Root liegt.</p>
-    </div>
-    <div>
-      <h3>Fragen</h3>
-      <div id="questions"></div>
-      <hr/>
-      <div class="qcard">
-        <div class="qtitle">Eigene Beobachtungen</div>
-        <textarea id="comment" rows="6" placeholder="Notizen, Beobachtungen, Zitate…"></textarea>
-        <div class="small">Wird automatisch gespeichert (LocalStorage im Browser).</div>
+<body onload="initChapter('II_01')">
+  <div class="container">
+    <div class="toprow">
+      <a href="index.html">← Zur Übersicht</a>
+      <div class="actions">
+        <button class="reset" onclick="resetChapter('II_01')">Antworten zurücksetzen</button>
       </div>
     </div>
-  </div>
-</div>
 
-<script>
-document.addEventListener("DOMContentLoaded", ()=> initChapter("II", 1));
-</script>
+    <h1>Talwasser – Kapitel II_01</h1>
+
+    <img src="BlickaufStaumauer.jpg" alt="II_01" class="chapter-image">
+
+    <iframe src="II_01.pdf"></iframe>
+
+    <div class="question">
+      <h3>1. Wie verändert sich die Grundstimmung zu Beginn von Teil II im Vergleich zum Ende von Teil I?</h3>
+      <textarea id="answer1" placeholder="Deine Antwort …"></textarea>
+      <details>
+        <summary>Sofortkorrektur / Erwartungshorizont</summary>
+        <p>Der Ton wird nüchterner und stärker von Konsequenzen als von akuter Bedrohung geprägt.</p>
+        <p><strong>Synonyme:</strong> Grundstimmung / Ton; Konsequenz / Folge</p>
+      </details>
+    </div>
+
+    <div class="question">
+      <h3>2. Welche neuen Fragen rücken in den Vordergrund?</h3>
+      <textarea id="answer2" placeholder="Deine Antwort …"></textarea>
+      <details>
+        <summary>Sofortkorrektur / Erwartungshorizont</summary>
+        <p>Nicht mehr das Überstehen, sondern das Weiterleben steht im Zentrum.</p>
+        <p><strong>Synonyme:</strong> Überstehen / Bewältigen; Weiterleben / Alltag</p>
+      </details>
+    </div>
+
+    <div class="question">
+      <h3>Eigene Beobachtungen</h3>
+      <textarea id="observations" placeholder="Notizen …"></textarea>
+    </div>
+  </div>
 </body>
 </html>
